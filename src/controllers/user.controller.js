@@ -5,7 +5,7 @@ export const createUser = async (req, res) => {
   const { nombre, correo, contrasena } = req.body;
   try {
     const result = await pool.query(
-      'INSERT INTO users (nombre, correo, contrasena) VALUES ($1, $2, $3) RETURNING *',
+      'INSERT INTO usuarios (nombre, correo, contrasena) VALUES ($1, $2, $3) RETURNING *',
       [nombre, correo, contrasena]
     );
     res.status(201).json(result.rows[0]);
@@ -18,7 +18,7 @@ export const createUser = async (req, res) => {
 // Obtener todos los usuarios
 export const getUsers = async (req, res) => {
   try {
-    const result = await pool.query('SELECT * FROM users ORDER BY id ASC');
+    const result = await pool.query('SELECT * FROM usuarios ORDER BY id ASC');
     return res.status(200).json({message: 'Lista de usuarios', users: result.rows});
   } catch (error) {
     console.error('Error al obtener usuarios:', error);
@@ -30,7 +30,7 @@ export const getUsers = async (req, res) => {
 export const getUserById = async (req, res) => {
   const { id } = req.params;
   try {
-    const result = await pool.query('SELECT * FROM users WHERE id = $1', [id]);
+    const result = await pool.query('SELECT * FROM usuarios WHERE id = $1', [id]);
     if (result.rows.length === 0) {
       return res.status(404).send('Usuario no encontrado');
     }
@@ -47,7 +47,7 @@ export const updateUser = async (req, res) => {
   const { nombre, correo, contrasena } = req.body;
   try {
     const result = await pool.query(
-      'UPDATE users SET nombre = $1, correo = $2, contrasena = $3 WHERE id = $4 RETURNING *',
+      'UPDATE usuarios SET nombre = $1, correo = $2, contrasena = $3 WHERE id = $4 RETURNING *',
       [nombre, correo, contrasena, id]
     );
     if (result.rows.length === 0) {
@@ -65,7 +65,7 @@ export const deleteUser = async (req, res) => {
   const { id } = req.params;
   try {
     const result = await pool.query(
-      'DELETE FROM users WHERE id = $1 RETURNING *',
+      'DELETE FROM usuarios WHERE id = $1 RETURNING *',
       [id]
     );
     if (result.rows.length === 0) {

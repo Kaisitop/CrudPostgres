@@ -10,10 +10,10 @@ import {
 const router = express.Router();
 
 // Endpoints CRUD
-router.post('/users', createUser);
-router.get('/users', getUsers);
-router.get('/users/:id', getUserById);
-router.put('/users/:id', updateUser);
-router.delete('/users/:id', deleteUser);
+router.post('/usuarios', createUser);
+router.get('/usuarios', getUsers);
+router.get('/usuarios/:id', getUserById);
+router.put('/usuarios/:id', updateUser);
+router.delete('/usuarios/:id', deleteUser);
 
 export default router;
